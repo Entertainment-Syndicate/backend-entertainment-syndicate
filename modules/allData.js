@@ -3,7 +3,7 @@ const axios = require('axios');
 
 class Movie {
   constructor(item, category) {
-    this.title = item.original_title;
+    this.title = item.title;
     this.description = item.overview;
     this.date = item.release_date;
     this.image = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
