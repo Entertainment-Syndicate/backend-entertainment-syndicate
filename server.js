@@ -26,13 +26,14 @@ async function getMovie(req,res){
     try {
         console.log('get the data from the API');
         const movie = await axios.get(url);
+        console.log(movie);
 
-        const movieArray = movie.data.map(Item => {
+        const movieArray = movie.data.genres.map(Item => {
             return new Movie(Item)
         })
 
        
-        res.send(movie);
+        res.send(movieArray);
     // res.send(movie);
 
     } catch (error) {
