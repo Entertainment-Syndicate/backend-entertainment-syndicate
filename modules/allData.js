@@ -1,6 +1,20 @@
 'use strict';
 const axios = require('axios');
 
+class Anime {
+  constructor(item, category) {
+    this.title = item.title;
+    this.description = item.synopsis;
+    this.date = item.start_date.split('').splice(0,10).join('');
+    this.image = item.image_url;
+    this.type = 'anime';
+    this.category = category;
+    this.watchURL = item.url;
+    this.episodes = item.episodes;
+    this.score = item.score;
+    this.rate = item.rated;
+  }
+}
 class Movie {
   constructor(item, category) {
     this.title = item.title;
@@ -9,16 +23,10 @@ class Movie {
     this.image = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
     this.type = 'movie';
     this.category = category;
-  }
-}
-class Anime {
-  constructor(item, category) {
-    this.title = item.title;
-    this.description = item.synopsis;
-    this.date = item.start_date;
-    this.image = item.image_url;
-    this.type = 'anime';
-    this.category = category;
+    this.voteAverage = item.vote_average;
+    this.voteCount = item.vote_count;
+    this.popularity = item.popularity;
+    this.cover = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
   }
 }
 class Game {
@@ -29,57 +37,15 @@ class Game {
     this.image = item.thumbnail;
     this.type = 'game';
     this.category = category;
+    this.installingURL=item.game_url;
+    this.platform=item.platform;
+    this.publisher=item.publisher;
+    this.developer=item.developer;
+
   }
 }
 async function fetchAllData(req, res) {
-  // GET 20 OF THE MOVIES DATA
-
-  let movieAction;
-  let moviefantasy;
-  let movieHorror;
-  let movieScienceFiction;
-  try {
-    movieAction = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=28`
-    );
-    moviefantasy = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=14`
-    );
-    movieHorror = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=27`
-    );
-    movieScienceFiction = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=878`
-    );
-  } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .send(`error in getting the movie data ==> ${error.message}`);
-  }
-
-  // EXTRACT THE REQUIRED DATA
-
-  let movieActionArr = movieAction.data.results
-    .map((item) => {
-      return new Movie(item, 'action');
-    })
-    .splice(0, 10);
-  let moviefantasyArr = moviefantasy.data.results
-    .map((item) => {
-      return new Movie(item, 'fantasy');
-    })
-    .splice(0, 10);
-  let movieHorrorArr = movieHorror.data.results
-    .map((item) => {
-      return new Movie(item, 'horror');
-    })
-    .splice(0, 10);
-  let movieScienceFictionArr = movieScienceFiction.data.results
-    .map((item) => {
-      return new Movie(item, 'ScienceFiction');
-    })
-    .splice(0, 10);
+  
   // GET 20 OF THE ANIMES DATA
 
   let animeAction;
@@ -131,6 +97,55 @@ async function fetchAllData(req, res) {
   let animeScienceFictionArr = selectedAnimeScienceFiction.map((item) => {
     return new Anime(item, 'ScienceFiction');
   });
+
+  // GET 20 OF THE MOVIES DATA
+
+  let movieAction;
+  let moviefantasy;
+  let movieHorror;
+  let movieScienceFiction;
+  try {
+    movieAction = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=28`
+    );
+    moviefantasy = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=14`
+    );
+    movieHorror = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=27`
+    );
+    movieScienceFiction = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=32705b2157d089bfa091a1f46fd73813&with_genres=878`
+    );
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send(`error in getting the movie data ==> ${error.message}`);
+  }
+
+  // EXTRACT THE REQUIRED DATA
+
+  let movieActionArr = movieAction.data.results
+    .map((item) => {
+      return new Movie(item, 'action');
+    })
+    .splice(0, 10);
+  let moviefantasyArr = moviefantasy.data.results
+    .map((item) => {
+      return new Movie(item, 'fantasy');
+    })
+    .splice(0, 10);
+  let movieHorrorArr = movieHorror.data.results
+    .map((item) => {
+      return new Movie(item, 'horror');
+    })
+    .splice(0, 10);
+  let movieScienceFictionArr = movieScienceFiction.data.results
+    .map((item) => {
+      return new Movie(item, 'ScienceFiction');
+    })
+    .splice(0, 10);
 
   // GET 20 OF THE GAMES DATA
 
