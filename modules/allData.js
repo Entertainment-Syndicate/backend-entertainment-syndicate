@@ -60,19 +60,26 @@ async function fetchAllData(req, res) {
 
   // EXTRACT THE REQUIRED DATA
 
-  let movieActionArr = movieAction.data.results.map((item) => {
-    return new Movie(item, 'action');
-  });
-  let moviefantasyArr = moviefantasy.data.results.map((item) => {
-    return new Movie(item, 'fantasy');
-  });
-  let movieHorrorArr = movieHorror.data.results.map((item) => {
-    return new Movie(item, 'horror');
-  });
-  let movieScienceFictionArr = movieScienceFiction.data.results.map((item) => {
-    return new Movie(item, 'ScienceFiction');
-  });
-
+  let movieActionArr = movieAction.data.results
+    .map((item) => {
+      return new Movie(item, 'action');
+    })
+    .splice(0, 10);
+  let moviefantasyArr = moviefantasy.data.results
+    .map((item) => {
+      return new Movie(item, 'fantasy');
+    })
+    .splice(0, 10);
+  let movieHorrorArr = movieHorror.data.results
+    .map((item) => {
+      return new Movie(item, 'horror');
+    })
+    .splice(0, 10);
+  let movieScienceFictionArr = movieScienceFiction.data.results
+    .map((item) => {
+      return new Movie(item, 'ScienceFiction');
+    })
+    .splice(0, 10);
   // GET 20 OF THE ANIMES DATA
 
   let animeAction;
@@ -81,16 +88,16 @@ async function fetchAllData(req, res) {
   let animeScienceFiction;
   try {
     animeAction = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=&genre=1`
+      `https://api.jikan.moe/v3/search/anime?q=&genre=1&order_by=score`
     );
     animefantasy = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=&genre=10`
+      `https://api.jikan.moe/v3/search/anime?q=&genre=10&order_by=score`
     );
     animeHorror = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=&genre=14`
+      `https://api.jikan.moe/v3/search/anime?q=&genre=14&order_by=score`
     );
     animeScienceFiction = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=&genre=24`
+      `https://api.jikan.moe/v3/search/anime?q=&genre=24&order_by=score`
     );
   } catch (error) {
     console.log(error);
@@ -101,26 +108,29 @@ async function fetchAllData(req, res) {
 
   // EXTRACT THE REQUIRED DATA
 
-  let animeActionArr = animeAction.data.results
-    .map((item) => {
-      return new Anime(item, 'action');
-    })
-    .splice(0, 20);
-  let animefantasyArr = animefantasy.data.results
-    .map((item) => {
-      return new Anime(item, 'fantasy');
-    })
-    .splice(0, 20);
-  let animeHorrorArr = animeHorror.data.results
-    .map((item) => {
-      return new Anime(item, 'horror');
-    })
-    .splice(0, 20);
-  let animeScienceFictionArr = animeScienceFiction.data.results
-    .map((item) => {
-      return new Anime(item, 'ScienceFiction');
-    })
-    .splice(0, 20);
+  let selectedAnimeAction = animeAction.data.results.splice(0, 10);
+  let selectedAnimefantasy = animefantasy.data.results.splice(0, 10);
+  let selectedAnimeHorror = animeHorror.data.results.splice(0, 10);
+  let selectedAnimeScienceFiction = animeScienceFiction.data.results.splice(
+    0,
+    10
+  );
+
+  let animeActionArr = selectedAnimeAction.map((item) => {
+    return new Anime(item, 'action');
+  });
+
+  let animefantasyArr = selectedAnimefantasy.map((item) => {
+    return new Anime(item, 'fantasy');
+  });
+
+  let animeHorrorArr = selectedAnimeHorror.map((item) => {
+    return new Anime(item, 'horror');
+  });
+
+  let animeScienceFictionArr = selectedAnimeScienceFiction.map((item) => {
+    return new Anime(item, 'ScienceFiction');
+  });
 
   // GET 20 OF THE GAMES DATA
 
@@ -152,22 +162,22 @@ async function fetchAllData(req, res) {
     .map((item) => {
       return new Game(item, 'action');
     })
-    .splice(0, 20);
+    .splice(0, 10);
   let gamefantasyArr = gamefantasy.data
     .map((item) => {
       return new Game(item, 'fantasy');
     })
-    .splice(0, 20);
+    .splice(0, 10);
   let gameHorrorArr = gameHorror.data
     .map((item) => {
       return new Game(item, 'horror');
     })
-    .splice(0, 20);
+    .splice(0, 10);
   let gameScienceFictionArr = gameScienceFiction.data
     .map((item) => {
       return new Game(item, 'ScienceFiction');
     })
-    .splice(0, 20);
+    .splice(0, 10);
   //   console.log(movieAction);
 
   let allData = [
