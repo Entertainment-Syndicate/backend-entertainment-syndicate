@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+
 const favoriteAnimeSchema = new Schema({
   title: String,
   description: String,
@@ -37,6 +38,7 @@ const favoriteGameSchema = new Schema({
   publisher: String,
   developer: String,
 });
+
 const userSchema = new Schema({
   name: String,
   email: String,
@@ -46,6 +48,7 @@ const userSchema = new Schema({
   favoriteGame: [favoriteGameSchema],
 });
 
+// defining a model and sending it to requests functions.
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;

@@ -1,6 +1,7 @@
 'use strict';
 const axios = require('axios');
 
+// classes for each type
 class Anime {
   constructor(item, category) {
     this.title = item.title;
@@ -44,18 +45,21 @@ class Game {
   }
 }
 
+// variable for storing data to cache memory
 let storedData = [];
 
 async function fetchAllData(req, res) {
   if (storedData.length !== 0) {
     res.send(storedData);
   } else {
-    // GET 20 OF THE ANIMES DATA
-
+    // Anime
+    // GET 10 OF THE ANIME DATA
     let animeAction;
     let animefantasy;
     let animeHorror;
     let animeScienceFiction;
+
+    // requests to API
     try {
       animeAction = await axios.get(
         `https://api.jikan.moe/v3/search/anime?q=&genre=1&order_by=score`
@@ -77,7 +81,6 @@ async function fetchAllData(req, res) {
     }
 
     // EXTRACT THE REQUIRED DATA
-
     let selectedAnimeAction = animeAction.data.results.splice(0, 10);
     let selectedAnimefantasy = animefantasy.data.results.splice(0, 10);
     let selectedAnimeHorror = animeHorror.data.results.splice(0, 10);
@@ -86,6 +89,7 @@ async function fetchAllData(req, res) {
       10
     );
 
+    //  New instances from Classes
     let animeActionArr = selectedAnimeAction.map((item) => {
       return new Anime(item, 'action');
     });
@@ -102,8 +106,8 @@ async function fetchAllData(req, res) {
       return new Anime(item, 'ScienceFiction');
     });
 
+    // Movies
     // GET 20 OF THE MOVIES DATA
-
     let movieAction;
     let moviefantasy;
     let movieHorror;
@@ -151,8 +155,8 @@ async function fetchAllData(req, res) {
       })
       .splice(0, 10);
 
+    // Games
     // GET 20 OF THE GAMES DATA
-
     let gameAction;
     let gamefantasy;
     let gameHorror;
@@ -201,6 +205,7 @@ async function fetchAllData(req, res) {
       .splice(0, 10);
     //   console.log(movieAction);
 
+    // Array Concat All data to be sent to Explore
     let allData = [
       animeActionArr,
       animefantasyArr,
@@ -216,6 +221,8 @@ async function fetchAllData(req, res) {
       gameScienceFictionArr,
     ];
     storedData = allData;
+
+    // 1st res
     res.send(allData);
   }
 }
