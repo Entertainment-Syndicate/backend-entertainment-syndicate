@@ -53,19 +53,13 @@ seeding = () => {
   dana.save();
 };
 // seeding();
+
+// Adding users Favorite Data to DataBase From 2nd req
 favoriteHandler = (req, res) => {
   const { favouriteData } = req.body;
-  console.log(favouriteData);
-  //   title: String,
-  //   description: String,
-  //   date: String,
-  //   image: String,
-  //   type: String,
-  //   category: String,
-  //   watchURL: String,
-  //   episodes: String,
-  //   score: String,
-  //   rate: String,
+  // console.log(favouriteData);
+
+  // filling data in the schema
   User.findOne({ email: favouriteData.email }, (err, data) => {
     if (err) {
       console.log(err + ' error inside the find');
