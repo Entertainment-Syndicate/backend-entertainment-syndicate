@@ -13,6 +13,7 @@ const favoriteAnimeSchema = new Schema({
   episodes: String,
   score: String,
   rate: String,
+  feedback: { type: String, default: 'test' },
 });
 const favoriteMovieSchema = new Schema({
   title: String,
@@ -25,6 +26,7 @@ const favoriteMovieSchema = new Schema({
   voteCount: String,
   popularity: String,
   cover: String,
+  feedback: { type: String, default: 'test' },
 });
 const favoriteGameSchema = new Schema({
   title: String,
@@ -37,6 +39,7 @@ const favoriteGameSchema = new Schema({
   platform: String,
   publisher: String,
   developer: String,
+  feedback: { type: String, default: 'test' },
 });
 
 const userSchema = new Schema({
