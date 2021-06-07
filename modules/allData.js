@@ -14,6 +14,7 @@ class Anime {
     this.episodes = item.episodes;
     this.score = item.score;
     this.rate = item.rated;
+    this.feedback = '';
   }
 }
 class Movie {
@@ -28,6 +29,7 @@ class Movie {
     this.voteCount = item.vote_count;
     this.popularity = item.popularity;
     this.cover = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
+    this.feedback = '';
   }
 }
 class Game {
@@ -42,6 +44,7 @@ class Game {
     this.platform = item.platform;
     this.publisher = item.publisher;
     this.developer = item.developer;
+    this.feedback = '';
   }
 }
 

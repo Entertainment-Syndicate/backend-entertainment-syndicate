@@ -41,6 +41,10 @@ server.get('/favorite', getFavoriteHandler);
 const deleteHandler = require('./modules/delete');
 server.delete('/favorite/:index', deleteHandler);
 
+// Updating Feedback to favorte items in db function 5th req
+const updateFeedback = require('./modules/updateFeedback');
+server.put('/feedback/:index', updateFeedback);
+
 server.get('*', errorsHandler);
 function errorsHandler(req, res) {
   res.status(404).send('Something went wrong');
