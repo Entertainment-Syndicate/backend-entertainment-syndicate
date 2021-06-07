@@ -59,20 +59,26 @@ favoriteHandler = (req, res) => {
   const { favouriteData } = req.body;
   // console.log(favouriteData);
 
-  // filling data in the schema
+  // filling data in the schema if it dosent exist
   User.findOne({ email: favouriteData.email }, (err, data) => {
     if (err) {
       console.log(err + ' error inside the find');
     } else {
       if (favouriteData.favoriteItem.type === 'anime') {
-        // console.log(data, 'anime');
-        data.favoriteAnime.push(favouriteData.favoriteItem);
+        const found = data.favoriteAnime.some(
+          (item) => item.title === favouriteData.favoriteItem.title
+        );
+        if (!found) data.favoriteAnime.push(favouriteData.favoriteItem);
       } else if (favouriteData.favoriteItem.type === 'movie') {
-        // console.log(favouriteData.favoriteItem, 'movie');
-        data.favoriteMovie.push(favouriteData.favoriteItem);
+        const found = data.favoriteMovie.some(
+          (item) => item.title === favouriteData.favoriteItem.title
+        );
+        if (!found) data.favoriteMovie.push(favouriteData.favoriteItem);
       } else if (favouriteData.favoriteItem.type === 'game') {
-        // console.log(favouriteData.favoriteItem, 'game');
-        data.favoriteGame.push(favouriteData.favoriteItem);
+        const found = data.favoriteGame.some(
+          (item) => item.title === favouriteData.favoriteItem.title
+        );
+        if (!found) data.favoriteGame.push(favouriteData.favoriteItem);
       }
     }
     data.save();
