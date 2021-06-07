@@ -18,6 +18,11 @@ mongoose.connect('mongodb://localhost:27017/favorite', {
 let PORT = process.env.PORT;
 server.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
 
+server.get('/', homeRouteHandler);
+function homeRouteHandler(req, res) {
+  res.send('home route');
+}
+
 // reqs & res
 
 // function for getting and sending all data response for the 1st req ,
@@ -31,3 +36,12 @@ server.post('/favorite', favoriteHandler);
 // function for sending data from database to profile.
 const getFavoriteHandler = require('./modules/getFavorite.js');
 server.get('/favorite', getFavoriteHandler);
+
+// delete favorte items from db function 4th req
+const deleteHandler = require('./modules/delete');
+server.delete('/favorite/:index', deleteHandler);
+
+server.get('*', errorsHandler);
+function errorsHandler(req, res) {
+  res.status(404).send('Something went wrong');
+}
