@@ -10,7 +10,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/favorite', {
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
