@@ -47,7 +47,7 @@ const updateFeedback = require('./modules/updateFeedback');
 server.put('/feedback/:index', updateFeedback);
 
 const getFeed = require('./modules/getFeed');
-server.get('/feed', getFeed);
+server.get('/getFeed', getFeed);
 
 server.get('*', errorsHandler);
 function errorsHandler(req, res) {

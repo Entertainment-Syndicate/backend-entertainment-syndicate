@@ -5,8 +5,8 @@ function deleteHandler(req, res) {
   let email = req.query.email;
   let index = req.params.index;
   let type = req.query.type;
-  console.log('type', type);
-  console.log('email', email);
+  // console.log('type', type);
+  // console.log('email', email);
 
   //filter based on the type sent from frontend
   User.find({ email: email }, (err, data) => {
@@ -16,21 +16,21 @@ function deleteHandler(req, res) {
       deletedArr = deleteFilter.favoriteAnime.filter(
         (item, idx) => index != idx
       );
-      console.log('insied anime if');
+      // console.log('insied anime if');
 
       data[0].favoriteAnime = deletedArr;
     } else if (type == 'movie') {
       deletedArr = deleteFilter.favoriteMovie.filter(
         (item, idx) => index != idx
       );
-      console.log('insied move if');
+      // console.log('insied move if');
 
       data[0].favoriteMovie = deletedArr;
     } else if (type === 'game') {
       deletedArr = deleteFilter.favoriteGame.filter(
         (item, idx) => index != idx
       );
-      console.log('insied game if');
+      // console.log('insied game if');
 
       data[0].favoriteGame = deletedArr;
     }
