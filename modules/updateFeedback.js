@@ -1,10 +1,12 @@
 'use strict';
 const User = require('../schema/users');
+const Feed = require('../schema/feed');
 
 function updateFeedback(req, res) {
   let email = req.body.email;
   let index = req.params.index;
   let type = req.body.type;
+  let { title, image, userImage, name } = req.body;
   let feedback = req.body.feedback;
   // console.log(feedback);
 
@@ -43,6 +45,27 @@ function updateFeedback(req, res) {
     data[0].save();
     // console.log(data[0]);
     res.send(data[0]);
+  });
+  Feed.findOne({ title: title, name: name }, (err, data) => {
+    if (data) {
+      data.feedback = feedback;
+      data.save();
+      if (feedback === '') {
+        Feed.deleteOne({ title: title, name: name }, function (err) {
+          if (err) return handleError(err);
+          // deleted at most one tank document
+        });
+      }
+    } else {
+      let NewFeed = new Feed({
+        title: title,
+        image: image,
+        name: name,
+        userImage: userImage,
+        feedback: feedback,
+      });
+      NewFeed.save();
+    }
   });
 }
 

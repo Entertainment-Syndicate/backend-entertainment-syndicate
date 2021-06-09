@@ -10,7 +10,8 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URL, {
+// process.env.MONGODB_URL;
+mongoose.connect('mongodb://localhost:27017/favorite', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -44,6 +45,9 @@ server.delete('/favorite/:index', deleteHandler);
 // Updating Feedback to favorte items in db function 5th req
 const updateFeedback = require('./modules/updateFeedback');
 server.put('/feedback/:index', updateFeedback);
+
+const getFeed = require('./modules/getFeed');
+server.get('/feed', getFeed);
 
 server.get('*', errorsHandler);
 function errorsHandler(req, res) {
