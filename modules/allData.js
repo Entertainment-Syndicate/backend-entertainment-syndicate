@@ -84,12 +84,12 @@ async function fetchAllData(req, res) {
     }
 
     // EXTRACT THE REQUIRED DATA
-    let selectedAnimeAction = animeAction.data.results.splice(0, 10);
-    let selectedAnimefantasy = animefantasy.data.results.splice(0, 10);
-    let selectedAnimeHorror = animeHorror.data.results.splice(0, 10);
+    let selectedAnimeAction = animeAction.data.results.splice(0, 20);
+    let selectedAnimefantasy = animefantasy.data.results.splice(0, 20);
+    let selectedAnimeHorror = animeHorror.data.results.splice(0, 20);
     let selectedAnimeScienceFiction = animeScienceFiction.data.results.splice(
       0,
-      10
+      20
     );
 
     //  New instances from Classes
@@ -141,22 +141,22 @@ async function fetchAllData(req, res) {
       .map((item) => {
         return new Movie(item, 'action');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     let moviefantasyArr = moviefantasy.data.results
       .map((item) => {
         return new Movie(item, 'fantasy');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     let movieHorrorArr = movieHorror.data.results
       .map((item) => {
         return new Movie(item, 'horror');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     let movieScienceFictionArr = movieScienceFiction.data.results
       .map((item) => {
         return new Movie(item, 'ScienceFiction');
       })
-      .splice(0, 10);
+      .splice(0, 20);
 
     // Games
     // GET 20 OF THE GAMES DATA
@@ -190,22 +190,22 @@ async function fetchAllData(req, res) {
       .map((item) => {
         return new Game(item, 'action');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     let gamefantasyArr = gamefantasy.data
       .map((item) => {
         return new Game(item, 'fantasy');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     let gameHorrorArr = gameHorror.data
       .map((item) => {
         return new Game(item, 'horror');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     let gameScienceFictionArr = gameScienceFiction.data
       .map((item) => {
         return new Game(item, 'ScienceFiction');
       })
-      .splice(0, 10);
+      .splice(0, 20);
     //   console.log(movieAction);
 
     // Array Concat All data to be sent to Explore
