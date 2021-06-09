@@ -11,7 +11,7 @@ const getFavoriteHandler = (req, res) => {
     if (err) {
       console.log('error from getFavourite');
     } else {
-      console.log(data);
+      // console.log(data);
       res.send(data);
     }
   });

@@ -1,6 +1,6 @@
 'use strict';
 const User = require('../schema/users');
-const Feed = require('../schema/feed');
+const Feed = require('../schema/getFeed');
 
 function updateFeedback(req, res) {
   let email = req.body.email;
