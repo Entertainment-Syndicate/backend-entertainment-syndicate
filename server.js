@@ -25,6 +25,8 @@ function homeRouteHandler(req, res) {
 
 // reqs & res
 
+
+
 // function for getting and sending all data response for the 1st req ,
 const fetchAllData = require('./modules/allData.js');
 server.get('/fetchAllData', fetchAllData);
@@ -47,6 +49,10 @@ server.put('/feedback/:index', updateFeedback);
 
 const getFeed = require('./modules/getFeed');
 server.get('/getFeed', getFeed);
+
+// fonction for login new account
+const loginNewHandler = require('./modules/loginNew.js');
+server.post('/loginNew', loginNewHandler);
 
 server.get('*', errorsHandler);
 function errorsHandler(req, res) {
